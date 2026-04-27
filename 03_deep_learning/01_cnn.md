@@ -155,15 +155,15 @@ Average Pooling: 取局部区域平均值
 
 二维卷积可以简单理解为：
 
-```text
-输出特征 = 局部区域 * 卷积核权重 + 偏置
-```
+$$
+\text{输出特征} = \text{局部区域} \times \text{卷积核权重} + \text{偏置}
+$$
 
 卷积输出尺寸：
 
-```text
-out = (in + 2 * padding - kernel_size) / stride + 1
-```
+$$
+out = \frac{in + 2 \times padding - kernel\_size}{stride} + 1
+$$
 
 说明：
 
