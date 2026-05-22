@@ -11,7 +11,11 @@ AI-Learning-Notes/
 ├── README.md
 ├── 01_algorithms/
 │   ├── 00_template
-│   └── 01_union_find.md
+│   ├── 01_union_find.md
+│   ├── 02_dynamic_programming.md
+│   ├── 03_binary_tree.md
+│   ├── algorithm_templates.py
+│   └── union_find.png
 ├── 02_machine_learning/
 │   └── 00_template
 └── 03_deep_learning/
@@ -37,6 +41,8 @@ AI-Learning-Notes/
 
 - [算法笔记模板](./01_algorithms/00_template)
 - [并查集](./01_algorithms/01_union_find.md)
+- [动态规划](./01_algorithms/02_dynamic_programming.md)
+- [二叉树](./01_algorithms/03_binary_tree.md)
 
 ### 02_machine_learning
 
@@ -99,8 +105,8 @@ AI-Learning-Notes/
 
 ## 后续计划
 
-- 完成 `01_algorithms/01_union_find.md`
-- 新增 BFS、DFS、动态规划笔记
+- 继续完善 `01_algorithms/algorithm_templates.py`
+- 新增 BFS、DFS、贪心、图论笔记
 - 修正并完善机器学习和深度学习模板
 - 扩展 LLM / RAG / 项目总结目录
 
