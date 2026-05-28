@@ -11,6 +11,7 @@
 - 如果题目要求按某种顺序访问节点，多半是遍历问题，用前序、中序、后序或层序。
 - 如果题目要求高度、直径、平衡性、最大路径和，多半是子树问题，用后序递归更自然。
 - 如果题目要求一条路径，记得递归进入时加入节点，递归退出时回溯删除节点。
+- 如果题目要求返回一个答案，先想清楚“空树返回什么”和“左右子树返回什么”。
 
 ---
 
@@ -82,6 +83,11 @@
 
 这三个问题想清楚，递归函数的参数、返回值和终止条件通常就清楚了。
 
+最容易掌握的写法可以先记两类：
+
+- 遍历型：从当前节点出发，按某个顺序访问所有节点，把结果放进外部变量或列表。
+- 返回值型：先让左右子树返回答案，再在当前节点合并，并把合并结果返回给父节点。
+
 ---
 
 ## 核心操作 / 关键步骤
@@ -117,11 +123,16 @@ def dfs(root):
     if not root:
         return
 
-    # 前序位置：进入节点时处理
+    # 前序位置：刚进入节点时处理，常用于普通遍历和路径进入
+    # 例如：ans.append(root.val)
     dfs(root.left)
-    # 中序位置：左子树处理完后处理
+
+    # 中序位置：左子树处理完后处理，常用于二叉搜索树
+    # 例如：ans.append(root.val)
     dfs(root.right)
-    # 后序位置：左右子树都处理完后处理
+
+    # 后序位置：左右子树都处理完后处理，常用于高度、平衡、直径等子树问题
+    # 例如：return left_answer 和 right_answer 合并后的结果
 ```
 
 ---
@@ -157,6 +168,15 @@ BFS 按层访问节点，适合层序遍历、最小深度、每层最大值、�
 ```
 
 这种题通常用后序遍历，因为必须先知道左右子树的答案，才能处理当前节点。
+
+返回值型递归可以先套这个骨架：
+
+```text
+如果 root 为空，返回空树答案
+left = 左子树答案
+right = 右子树答案
+return 当前节点合并 left 和 right 后的答案
+```
 
 ---
 
@@ -242,10 +262,32 @@ def postorder_traversal(root):
 
 非递归遍历的核心是用栈模拟递归调用栈。
 
-前序遍历顺序是 `根 -> 左 -> 右`。因为栈是后进先出，所以要先把右孩子入栈，再把左孩子入栈。
+数据结构教材和王道考研里，非递归遍历常用“栈 + 工作指针 `node`”来写。
+
+前序遍历顺序是 `根 -> 左 -> 右`，所以第一次遇到节点时就访问它，然后把节点入栈，再继续向左走；左边走不动时，弹出栈顶节点，转向它的右子树。
 
 ```python
 def preorder_traversal_iter(root):
+    ans = []
+    stack = []
+    node = root
+
+    while node or stack:
+        while node:
+            ans.append(node.val)
+            stack.append(node)
+            node = node.left
+
+        node = stack.pop()
+        node = node.right
+
+    return ans
+```
+
+刷题时也常见下面这种简写：利用栈后进先出的特点，先压右孩子，再压左孩子。
+
+```python
+def preorder_traversal_iter_push(root):
     if not root:
         return []
 
@@ -270,7 +312,7 @@ def preorder_traversal_iter(root):
 
 中序遍历顺序是 `左 -> 根 -> 右`。
 
-思路是：先一路向左走到底，把沿途节点压栈；走不动时弹出栈顶节点处理，再去它的右子树。
+这也是教材里最经典的栈写法：先一路向左走到底，把沿途节点压栈；走不动时弹出栈顶节点处理，再去它的右子树。
 
 ```python
 def inorder_traversal_iter(root):
@@ -296,10 +338,42 @@ def inorder_traversal_iter(root):
 
 后序遍历顺序是 `左 -> 右 -> 根`。
 
-可以先按 `根 -> 右 -> 左` 的顺序遍历，最后把结果反转，就得到后序遍历。
+教材和王道考研里常见的写法是：用一个栈模拟递归，再用 `last_visited` 记录上一次真正访问过的节点。
+
+因为根节点必须在右子树之后访问，所以对栈顶节点来说：
+
+- 如果它还有右子树，并且右子树还没访问过，就先去右子树。
+- 如果它没有右子树，或者右子树已经访问过，就可以访问当前节点。
 
 ```python
 def postorder_traversal_iter(root):
+    ans = []
+    stack = []
+    node = root
+    last_visited = None
+
+    while node or stack:
+        while node:
+            stack.append(node)
+            node = node.left
+
+        peek = stack[-1]
+
+        if peek.right and last_visited is not peek.right:
+            node = peek.right
+        else:
+            ans.append(peek.val)
+            last_visited = stack.pop()
+
+    return ans
+```
+
+这个版本更贴近递归过程：先一路压入左孩子，走不动时看栈顶节点；如果右子树还没处理，就转向右子树；如果右子树已经处理完，才弹出并访问根节点。
+
+刷题时也可以用反转法：先按 `根 -> 右 -> 左` 的顺序遍历，最后把结果反转，就得到 `左 -> 右 -> 根`。
+
+```python
+def postorder_traversal_iter_reverse(root):
     if not root:
         return []
 
@@ -316,6 +390,27 @@ def postorder_traversal_iter(root):
             stack.append(node.right)
 
     return ans[::-1]
+```
+
+---
+
+### 非递归遍历小结
+
+三种教材式写法的区别主要在访问节点的时机：
+
+```text
+前序：第一次遇到节点就访问。
+中序：左子树走完，节点弹栈时访问。
+后序：左右子树都处理完，节点弹栈时访问。
+```
+
+共同点是：
+
+```text
+while node or stack:
+    先一路向左走，并把节点压栈
+    左边走不动时，看栈顶节点
+    根据遍历顺序决定访问节点，还是转向右子树
 ```
 
 ---
@@ -391,6 +486,8 @@ def min_depth(root):
             queue.append((node.left, depth + 1))
         if node.right:
             queue.append((node.right, depth + 1))
+
+    return 0
 ```
 
 ---
@@ -478,6 +575,8 @@ def path_sum(root, target_sum):
 
 普通二叉树的最近公共祖先，核心是看 `p` 和 `q` 分别落在哪个子树里。
 
+这个模板默认 `p` 和 `q` 都在树中。如果题目不保证两个节点都存在，需要额外统计是否找到了两个节点。
+
 ```python
 def lowest_common_ancestor(root, p, q):
     if not root or root == p or root == q:
@@ -544,6 +643,9 @@ def search_bst(root, val):
 
 ```python
 def build_tree(preorder, inorder):
+    if not preorder:
+        return None
+
     index = {value: i for i, value in enumerate(inorder)}
 
     def dfs(pre_left, pre_right, in_left, in_right):
@@ -689,8 +791,12 @@ def build_tree(preorder, inorder):
 - 判断 BST 不能只比较当前节点和左右孩子，要用上下界限制整棵子树。
 - 收集路径时忘记 `path.pop()`，会导致不同路径互相污染。
 - `ans.append(path)` 会保存同一个列表引用，应该写 `ans.append(path[:])`。
-- 非递归前序遍历要先压右孩子再压左孩子，否则访问顺序会变成 `根 -> 右 -> 左`。
-- 非递归后序遍历如果用反转法，要先得到 `根 -> 右 -> 左`，再反转成 `左 -> 右 -> 根`。
+- 教材式非递归遍历要写 `while node or stack`，否则根节点或右子树可能漏掉。
+- 前序遍历的教材式写法是在第一次遇到节点时访问，不能等到弹栈时再访问。
+- 中序遍历是在节点弹栈时访问，访问后再转向右子树。
+- 后序遍历要确认右子树已经访问过，才能访问当前根节点。
+- 前序遍历如果用压栈简写，要先压右孩子再压左孩子，否则访问顺序会变成 `根 -> 右 -> 左`。
+- 后序遍历如果用反转法，要先得到 `根 -> 右 -> 左`，再反转成 `左 -> 右 -> 根`。
 - 构造二叉树时左右区间边界容易写错，要先算左子树大小。
 - Python 递归深度有限，极端链状树可能需要改成迭代写法或调整递归深度。
 
