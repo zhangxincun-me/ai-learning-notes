@@ -18,9 +18,15 @@ AI-Learning-Notes/
 │   ├── algorithm_templates.py
 │   └── union_find.png
 ├── 02_machine_learning/
-│   └── 00_template
-└── 03_deep_learning/
-    └── 00_template
+│   ├── 00_template
+│   └── 01_svm.md
+├── 03_deep_learning/
+│   ├── 00_template
+│   ├── 01_cnn.md
+│   └── 02_rnn.md
+└── 04_llm/
+    ├── 00_template
+    └── 01_llm_application_interview.md
 ```
 
 ## 目录说明
@@ -62,6 +68,7 @@ AI-Learning-Notes/
 当前已有：
 
 - [机器学习笔记模板](./02_machine_learning/00_template)
+- [SVM](./02_machine_learning/01_svm.md)
 
 ### 03_deep_learning
 
@@ -80,6 +87,28 @@ AI-Learning-Notes/
 当前已有：
 
 - [深度学习笔记模板](./03_deep_learning/00_template)
+- [CNN](./03_deep_learning/01_cnn.md)
+- [RNN](./03_deep_learning/02_rnn.md)
+
+### 04_llm
+
+大模型应用开发笔记。
+
+主要用于整理：
+
+- LLM 基础
+- Prompt Engineering
+- RAG
+- 微调
+- Agent
+- 推理部署
+- 评估与可观测性
+- 面试题和项目总结
+
+当前已有：
+
+- [大模型笔记模板](./04_llm/00_template)
+- [大模型应用开发面试笔记](./04_llm/01_llm_application_interview.md)
 
 ## 笔记写作原则
 
@@ -104,6 +133,7 @@ AI-Learning-Notes/
 - 新增算法笔记时，从 `01_algorithms/00_template` 复制结构。
 - 新增机器学习笔记时，从 `02_machine_learning/00_template` 复制结构。
 - 新增深度学习笔记时，从 `03_deep_learning/00_template` 复制结构。
+- 新增大模型应用笔记时，从 `04_llm/00_template` 复制结构。
 - 每篇笔记都尽量补充一句话总结、核心思想和代码模板。
 
 ## 后续计划
@@ -111,5 +141,5 @@ AI-Learning-Notes/
 - 继续完善 `01_algorithms/algorithm_templates.py`
 - 新增 BFS、DFS、贪心、图论笔记
 - 修正并完善机器学习和深度学习模板
-- 扩展 LLM / RAG / 项目总结目录
+- 按主题拆分并完善 LLM / RAG / Agent / 项目总结笔记
 
