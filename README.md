@@ -15,6 +15,7 @@ AI-Learning-Notes/
 │   ├── 02_dynamic_programming.md
 │   ├── 03_binary_tree.md
 │   ├── 04_binary_search.md
+│   ├── 05_sorting.md
 │   ├── algorithm_templates.py
 │   └── union_find.png
 ├── 02_machine_learning/
@@ -52,6 +53,7 @@ AI-Learning-Notes/
 - [动态规划](./01_algorithms/02_dynamic_programming.md)
 - [二叉树](./01_algorithms/03_binary_tree.md)
 - [二分查找](./01_algorithms/04_binary_search.md)
+- [排序算法](./01_algorithms/05_sorting.md)
 
 ### 02_machine_learning
 
@@ -118,6 +120,8 @@ AI-Learning-Notes/
 2. 它解决什么核心问题？
 3. 它的本质思想是什么？
 4. 面试或实战中怎么写代码、怎么表达？
+
+算法笔记里的模板代码优先使用教材版基础写法，重点保证步骤清楚、变量直观、方便手写。随机化、工程优化、三路划分等进阶版本可以作为补充说明，但不作为主模板。
 
 ## 学习路线
 

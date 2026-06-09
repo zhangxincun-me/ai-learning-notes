@@ -31,7 +31,7 @@ Python 环境：conda，Python 3.13。
 
 每个主题目录下有一个 `00_template` 文件（无扩展名），定义笔记结构。新建笔记时从该模板复制。
 
-`01_algorithms/algorithm_templates.py` 是唯一的 Python 文件，包含可复用的算法实现（UnionFind、TreeNode、遍历、BST 操作等）。仅使用标准库中的 `collections.deque`。
+`01_algorithms/algorithm_templates.py` 是唯一的 Python 文件，包含可复用的算法实现（UnionFind、TreeNode、遍历、BST 操作、SortAlgorithms 等）。仅使用标准库中的 `collections.deque`。
 
 ## 笔记写作规范
 
@@ -42,6 +42,7 @@ Python 环境：conda，Python 3.13。
 - **章节分隔**：使用 `---` 水平线
 - **数学公式**：使用 `$$...$$` 块书写 LaTeX
 - **代码块**：Python 代码用 ` ```python `，概念性文字用 ` ```text `
+- **算法代码风格**：算法笔记和 `algorithm_templates.py` 中的模板代码优先使用教材版基础写法，保证步骤清晰、变量直观、方便手写；随机化、工程优化、三路划分等进阶版本只作为补充说明，不作为主模板。
 - **图片**：与相关 `.md` 文件存放在同一目录下（如 `union_find.png` 在 `01_algorithms/` 中）
 
 ### 模板章节
